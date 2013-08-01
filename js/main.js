@@ -20,6 +20,10 @@
         this.messages = [];
         createMainContainer();
         $(d.body).addClass('SimpleDebuggerOnBoard');
+        g.onerror = function(e, src, line) {
+            self.add('error: ' + e);
+            self.add('in ' + src + ' at line ' + line);
+        };
     };
 
     SimpleDebugger.prototype.add = function(message) {
