@@ -12,7 +12,8 @@
     "gulp-util": "^3.0.8"
   },
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",

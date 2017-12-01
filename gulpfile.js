@@ -8,3 +8,5 @@ gulp.task('build', () =>
     .pipe(plugins.concat('simple-debugger.min.js'))
     .pipe(gulp.dest('./dist'))
 );
+
+gulp.task('watch', () => gulp.watch('./src/*', ['build']));
