@@ -6,6 +6,7 @@ const browserSync = require('browser-sync').create();
 gulp.task('build', ['lint'], () =>
   gulp.src('./src/*.js')
     .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.babel())
     .pipe(plugins.uglify())
     .pipe(plugins.concat('simple-debugger.min.js'))
     .pipe(plugins.sourcemaps.write())
