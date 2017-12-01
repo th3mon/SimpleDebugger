@@ -1,11 +1,10 @@
-const gulp = require('gulp'),
-  gutil = require('gulp-util'),
-  uglify = require('gulp-uglify'),
-  concat = require('gulp-concat');
+const gulp = require('gulp');
+const gulpLoadPlugins = require('gulp-load-plugins');
+const plugins = gulpLoadPlugins();
 
-gulp.task('build', function() {
+gulp.task('build', () =>
   gulp.src('./src/*.js')
-    .pipe(uglify())
-    .pipe(concat('bundle.js'))
-    .pipe(gulp.dest('./dist'));
-});
+    .pipe(plugins.uglify())
+    .pipe(plugins.concat('simple-debugger.min.js'))
+    .pipe(gulp.dest('./dist'))
+);
