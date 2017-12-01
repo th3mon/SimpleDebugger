@@ -2,12 +2,12 @@ const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const plugins = gulpLoadPlugins();
 const browserSync = require('browser-sync').create();
+const uglify = require('gulp-uglify-es').default;
 
 gulp.task('build', ['lint'], () =>
   gulp.src('./src/*.js')
     .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.babel())
-    .pipe(plugins.uglify())
+    .pipe(uglify())
     .pipe(plugins.concat('simple-debugger.min.js'))
     .pipe(plugins.sourcemaps.write())
     .pipe(gulp.dest('./dist'))
