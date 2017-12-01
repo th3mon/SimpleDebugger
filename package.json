@@ -1,0 +1,27 @@
+{
+  "name": "SimpleDebugger",
+  "version": "1.0.0",
+  "description": "SimpleDebugger",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/th3mon/SimpleDebugger.git"
+  },
+  "keywords": [],
+  "author": "Przemysław Szelenberger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/th3mon/SimpleDebugger/issues"
+  },
+  "homepage": "https://github.com/th3mon/SimpleDebugger#readme"
+}
