@@ -1,6 +1,23 @@
 # SimpleDebugger
 
-Simple debuger works like console.log() but pushing messages to HTML.
+SimpleDebugger works like console.log(). It puts messages into DOM.
+
+## Getting Started
+
+### Install dependencies
+```sh
+npm i
+```
+
+### Build
+```sh
+npm run build
+```
+
+### Develop
+```sh
+npm run serve
+```
 
 ## Libraries and Tools
 
