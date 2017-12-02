@@ -5,18 +5,28 @@
   "main": "gulpfile.js",
   "dependencies": {},
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
+    "eslint-loader": "^1.9.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-eslint": "^4.0.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify-es": "^0.1.6",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "webpack": "^3.9.1"
   },
   "scripts": {
-    "build": "gulp build",
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:dist": "webpack --env=prod --progress --profile --colors"
   },
   "repository": {
     "type": "git",
