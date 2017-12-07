@@ -26,7 +26,7 @@
     "serve": "gulp serve",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:dev": "webpack --env=dev --progress --profile --colors",
-    "build:dist": "webpack --env=prod --progress --profile --colors"
+    "build:prod": "webpack --env=prod --progress --profile --colors"
   },
   "repository": {
     "type": "git",
