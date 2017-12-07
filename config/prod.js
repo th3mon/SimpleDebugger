@@ -1,10 +1,10 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
-module.exports = function(env) {
+module.exports = function (env) {
   return {
     entry: {
-      main: './app/index.js'
+      main: './src/index.js'
     },
     output: {
       path: path.join(__dirname, '/../dist/assets'),
@@ -36,5 +36,5 @@ module.exports = function(env) {
         comments: false
       })
     ]
-  }
-}
+  };
+};
