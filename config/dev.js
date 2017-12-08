@@ -1,6 +1,8 @@
+const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 module.exports = function (env) {
   return {
@@ -11,7 +13,6 @@ module.exports = function (env) {
     output: {
       path: path.resolve(__dirname, './dist'),
       filename: '[name].bundle.js',
-      // publicPath: publicPath,
       sourceMapFilename: '[name].map'
     },
     module: {
@@ -49,17 +50,18 @@ module.exports = function (env) {
       new HtmlWebpackPlugin({
         // TODO: add version number
         title: 'SimpleDebugger',
-        filename: path.join(__dirname, '/../index.html'),
-        template: 'template-demo.html'
-      })
-    ]
-    // devServer: {
-    //   port: 7777,
-    //   host: 'localhost',
-    //   historyApiFallback: true,
-    //   noInfo: false,
-    //   stats: 'minimal',
-    //   publicPath: publicPath
-    // }
+        template: 'template-demo.html',
+        alwaysWriteToDisk: true
+      }),
+      new HtmlWebpackHarddiskPlugin(),
+      new webpack.NamedModulesPlugin(),
+      new webpack.HotModuleReplacementPlugin()
+    ],
+    devServer: {
+      contentBase: './dist',
+      port: 7777,
+      host: 'localhost',
+      hot: true
+    }
   };
 };
