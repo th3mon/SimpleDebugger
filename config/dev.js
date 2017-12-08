@@ -11,6 +11,20 @@ module.exports = function (env) {
       filename: '[name].bundle.js',
       // publicPath: publicPath,
       sourceMapFilename: '[name].map'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env']
+            }
+          }
+        }
+      ]
     }
     // devServer: {
     //   port: 7777,
