@@ -1,10 +1,5 @@
-/*
-**  SimpleDebugger v1.0.0
-**
-**  Dependencies
-**      jQuery v1.8
-*/
 import '../css/main.css';
+
 (function (g, d, $, u) {
   const SimpleDebugger = function (id) {
     const self = this;

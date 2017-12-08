@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = function (env) {
   return {
@@ -26,30 +28,32 @@ module.exports = function (env) {
         },
         {
           test: /\.css$/,
-          use: [
-            'style-loader',
-            {
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [{
               loader: 'css-loader',
               options: {
                 minimize: true,
                 sourceMap: true
               }
-            }
-          ]
+            }]
+          })
         },
         {
           test: /\.scss$/,
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-                sourceMap: true
-              }
-            },
-            'sass-loader'
-          ]
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  minimize: true,
+                  sourceMap: true
+                }
+              },
+              'sass-loader'
+            ]
+          })
         }
       ]
     },
@@ -75,6 +79,12 @@ module.exports = function (env) {
           screw_ie8: true
         },
         comments: false
+      }),
+      new ExtractTextPlugin({
+        filename: '[name].bundle.css'
+      }),
+      new HtmlWebpackPlugin({
+        filename: path.join(__dirname, '/../index.html')
       })
     ]
   };
