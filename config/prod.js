@@ -12,6 +12,47 @@ module.exports = function (env) {
       // publicPath: publicPath,
       sourceMapFilename: '[name].map'
     },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env']
+            }
+          }
+        },
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+                sourceMap: true
+              }
+            }
+          ]
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+                sourceMap: true
+              }
+            },
+            'sass-loader'
+          ]
+        }
+      ]
+    },
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
@@ -35,20 +76,6 @@ module.exports = function (env) {
         },
         comments: false
       })
-    ],
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['env']
-            }
-          }
-        }
-      ]
-    }
+    ]
   };
 };
