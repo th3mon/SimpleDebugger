@@ -9,7 +9,7 @@ module.exports = function (env) {
       main: './src/index.js'
     },
     output: {
-      path: path.resolve(__dirname, './dist/assets'),
+      path: path.resolve(__dirname, './dist'),
       filename: '[name].bundle.js',
       // publicPath: publicPath,
       sourceMapFilename: '[name].map'
