@@ -84,6 +84,8 @@ module.exports = function (env) {
         filename: '[name].bundle.css'
       }),
       new HtmlWebpackPlugin({
+        // TODO: add version number
+        title: 'SimpleDebugger',
         filename: path.join(__dirname, '/../index.html')
       })
     ]
