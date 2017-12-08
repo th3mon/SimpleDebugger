@@ -10,24 +10,29 @@ npm i
 ```
 
 ### Build
+
+#### dev
 ```sh
-npm run build
+npm run build:dev
+```
+
+#### dist
+```sh
+npm run build:dist
 ```
 
 ### Develop
 ```sh
-npm run serve
+npm start
 ```
 
 ## Libraries and Tools
 
-### Gulp
+### Webpack
 
 Used plugins:
-- [gulp-util]
-- gulp-concat
-- gulp-load-plugins
-- gulp-uglify
-- gulp-util
+- [Webpack]
+- [Babel]
 
-[gulp-util]: https://github.com/gulpjs/gulp-util
+[Webpack]: https://webpack.js.org
+[Babel]: babeljs.io
