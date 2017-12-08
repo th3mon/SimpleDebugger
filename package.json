@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "SimpleDebugger",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+    "jquery": "^3.2.1"
+  },
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
