@@ -2,7 +2,7 @@
   "name": "SimpleDebugger",
   "version": "1.0.0",
   "description": "SimpleDebugger",
-  "main": "src/index.js",
+  "main": "dist/main.bundle.js",
   "dependencies": {
     "jquery": "^3.2.1"
   },
