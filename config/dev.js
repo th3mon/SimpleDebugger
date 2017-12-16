@@ -56,7 +56,6 @@ module.exports = function (env) {
       new HtmlWebpackPlugin({
         // TODO: add version number
         title: 'SimpleDebugger',
-        template: 'template-demo.html',
         alwaysWriteToDisk: true
       }),
       new HtmlWebpackHarddiskPlugin(),
