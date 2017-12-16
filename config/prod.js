@@ -9,7 +9,7 @@ module.exports = function (env) {
       main: './src/index.js'
     },
     output: {
-      path: path.resolve(__dirname, './dist'),
+      path: path.resolve(__dirname, '../dist'),
       filename: '[name].bundle.js',
       // publicPath: publicPath,
       sourceMapFilename: '[name].map'
@@ -58,13 +58,6 @@ module.exports = function (env) {
       ]
     },
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: function (module) {
-          // this assumes your vendor imports exist in the node_modules directory
-          return module.context && module.context.indexOf('node_modules') !== -1;
-        }
-      }),
       new webpack.LoaderOptionsPlugin({
         minimize: true,
         debug: false

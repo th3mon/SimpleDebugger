@@ -11,7 +11,7 @@ module.exports = function (env) {
       main: './src/index.js'
     },
     output: {
-      path: path.resolve(__dirname, './dist'),
+      path: path.resolve(__dirname, '../dist'),
       filename: '[name].bundle.js',
       sourceMapFilename: '[name].map'
     },
@@ -61,7 +61,9 @@ module.exports = function (env) {
       contentBase: './dist',
       port: 7777,
       host: 'localhost',
-      hot: true
+      hot: true,
+      noInfo: false,
+      stats: 'minimal'
     }
   };
 };
