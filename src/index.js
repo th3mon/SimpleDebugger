@@ -39,4 +39,4 @@ SimpleDebugger.prototype.remove = function (messageId) {
   $(document.body).css({paddingTop: this.$main.height() + 'px'});
 };
 
-window.SimpleDebugger = SimpleDebugger;
+export default SimpleDebugger;
