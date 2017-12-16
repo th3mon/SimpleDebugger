@@ -42,5 +42,6 @@
   "bugs": {
     "url": "https://github.com/th3mon/SimpleDebugger/issues"
   },
-  "homepage": "https://github.com/th3mon/SimpleDebugger#readme"
+  "homepage": "https://github.com/th3mon/SimpleDebugger#readme",
+  "main": "dist/main.bundle.js"
 }
