@@ -1,11 +1,10 @@
 import '../css/main.css';
 import $ from 'jquery';
 
-const SimpleDebugger = function (id) {
-  const self = this;
-  const createMainContainer = function () {
-    self.$main = $('<div>', {
-      id: 'SimpleDebugger' + id,
+const SimpleDebugger = function (window, id) {
+  const createMainContainer = () => {
+    this.mainContainer = $('<div>', {
+      id: 'SimpleDebugger-' + id,
       'class': 'SimpleDebugger'
     }).appendTo(document.body);
   };
@@ -13,30 +12,57 @@ const SimpleDebugger = function (id) {
   this.id = id;
   this.messageId = 0;
   this.messages = [];
+
   createMainContainer();
+  this.addMainClass();
+  window.onerror = (e, src, line) => this.logError(e, src, line);
+};
+
+SimpleDebugger.prototype.addMainClass = function () {
   $(document.body).addClass('SimpleDebuggerOnBoard');
-  window.onerror = function (e, src, line) {
-    self.add('error: ' + e);
-    self.add('in ' + src + ' at line ' + line);
-  };
 };
 
 SimpleDebugger.prototype.add = function (message) {
   const messageConfig = {
-    id: 'SimpleDebuggerMessage' + this.id + this.messageId,
+    id: `SimpleDebuggerMessage-${this.id}-${this.messageId}`,
     text: message
   };
 
-  $('<p>', messageConfig).appendTo(this.$main);
   this.messages.push(messageConfig);
   this.messageId += 1;
 
-  $(document.body).css({paddingTop: this.$main.height() + 'px'});
+  this.addToDOM(messageConfig);
+  this.increaseHeightOfContainer();
+};
+
+SimpleDebugger.prototype.addToDOM = function (message) {
+  $('<p>', message).appendTo(this.mainContainer);
+};
+
+SimpleDebugger.prototype.increaseHeightOfContainer = function () {
+  $(document.body).css({paddingTop: this.mainContainer.height() + 'px'});
 };
 
 SimpleDebugger.prototype.remove = function (messageId) {
+  this.messages = [
+    ...this.messages.slice(0, messageId),
+    ...this.messages.slice(messageId + 1)
+  ];
+
+  this.removeFromDOM(messageId);
+  this.decreaseHeightOfContainer();
+};
+
+SimpleDebugger.prototype.decreaseHeightOfContainer = function () {
+  $(document.body).css({paddingTop: this.mainContainer.height() + 'px'});
+};
+
+SimpleDebugger.prototype.removeFromDOM = function (messageId) {
   $('#' + messageId).remove();
-  $(document.body).css({paddingTop: this.$main.height() + 'px'});
+};
+
+SimpleDebugger.prototype.logError = function (error, source, line) {
+  this.add(`error: ${error} in ${source} at line ${line}`);
 };
 
 export default SimpleDebugger;
