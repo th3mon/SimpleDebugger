@@ -1,25 +1,27 @@
 import '../css/main.css';
-import $ from 'jquery';
+
+const createMainContainer = id => {
+  const mainContainer = document.createElement('div');
+
+  mainContainer.setAttribute('id', `SimpleDebugger-${id}`);
+  mainContainer.classList.add('SimpleDebugger', `SimpleDebugger-${id}`);
+
+  return mainContainer;
+};
 
 const SimpleDebugger = function (window, id) {
-  const createMainContainer = () => {
-    this.mainContainer = $('<div>', {
-      id: 'SimpleDebugger-' + id,
-      'class': 'SimpleDebugger'
-    }).appendTo(document.body);
-  };
-
   this.id = id;
   this.messageId = 0;
   this.messages = [];
 
-  createMainContainer();
+  this.mainContainer = createMainContainer(id);
+  document.body.appendChild(this.mainContainer);
   this.addMainClass();
   window.onerror = (e, src, line) => this.logError(e, src, line);
 };
 
 SimpleDebugger.prototype.addMainClass = function () {
-  $(document.body).addClass('SimpleDebuggerOnBoard');
+  document.body.classList.add('SimpleDebuggerOnBoard');
 };
 
 SimpleDebugger.prototype.add = function (message) {
@@ -29,18 +31,27 @@ SimpleDebugger.prototype.add = function (message) {
   };
 
   this.messages.push(messageConfig);
-  this.messageId += 1;
 
   this.addToDOM(messageConfig);
   this.increaseHeightOfContainer();
+
+  this.messageId += 1;
 };
 
 SimpleDebugger.prototype.addToDOM = function (message) {
-  $('<p>', message).appendTo(this.mainContainer);
+  const pararaph = document.createElement('p');
+
+  pararaph.innerHtml = message;
+  pararaph.classList.add(message.id, 'SimpleDebugger__message');
+  pararaph.setAttribute('data-id', this.messageId);
+
+  this.mainContainer.appendChild(pararaph);
 };
 
 SimpleDebugger.prototype.increaseHeightOfContainer = function () {
-  $(document.body).css({paddingTop: this.mainContainer.height() + 'px'});
+  const mainContainerHeight = Math.max(this.mainContainer.offsetHeight, this.mainContainer.clientHeight);
+
+  document.body.style.paddingTop = `${mainContainerHeight}px`;
 };
 
 SimpleDebugger.prototype.remove = function (messageId) {
@@ -54,11 +65,15 @@ SimpleDebugger.prototype.remove = function (messageId) {
 };
 
 SimpleDebugger.prototype.decreaseHeightOfContainer = function () {
-  $(document.body).css({paddingTop: this.mainContainer.height() + 'px'});
+  const mainContainerHeight = Math.max(this.mainContainer.offsetHeight, this.mainContainer.clientHeight);
+
+  document.body.style.paddingTop = `${mainContainerHeight}px`;
 };
 
 SimpleDebugger.prototype.removeFromDOM = function (messageId) {
-  $('#' + messageId).remove();
+  const message = document.body.querySelector(`.SimpleDebuggerMessage-${this.id}-${messageId}`);
+
+  message.removeAttribute('id');
 };
 
 SimpleDebugger.prototype.logError = function (error, source, line) {
