@@ -6,22 +6,26 @@ const fakeWindow = {
   onerror: jest.fn()
 };
 
-beforeEach(() => {
-  simpleDebugger = new SimpleDebugger(fakeWindow, 666);
-});
+const removeNode = node => node.parentNode.removeChild(node);
+const removeSimpleDebugger = () =>
+  document.body
+    .querySelectorAll('.SimpleDebugger')
+    .forEach( removeNode );
 
-it('to be defined', () => {
-  expect(simpleDebugger).toBeDefined();
-});
+
+beforeEach(() => simpleDebugger = new SimpleDebugger(fakeWindow, 666));
+afterEach( removeSimpleDebugger );
+
+it('to be defined', () => expect(simpleDebugger).toBeDefined());
 
 describe('constructor', () => {
-  it('should create main container', () => {
-    expect(simpleDebugger.mainContainer).toBeTruthy();
-  });
+  it('should create main container', () =>
+    expect(simpleDebugger.mainContainer).toBeTruthy()
+  );
 
-  it('should add main container to DOM', () => {
-    expect(document.body.querySelector('.SimpleDebugger')).toBeTruthy();
-  });
+  it('should add main container to DOM', () =>
+    expect(document.body.querySelector('.SimpleDebugger')).toBeTruthy()
+  );
 
   it('should main container have id', () => {
     const mainContainer = document.getElementById('SimpleDebugger-666');
@@ -29,9 +33,7 @@ describe('constructor', () => {
     expect(mainContainer.id).toBe('SimpleDebugger-666');
   });
 
-  it('should set id', () => {
-    expect(simpleDebugger.id).toEqual(666);
-  });
+  it('should set id', () => expect(simpleDebugger.id).toEqual(666) );
 
   it('should react on rised error', () => {
     simpleDebugger.logError = jest.fn().mockName('logError');
@@ -40,16 +42,13 @@ describe('constructor', () => {
     expect(simpleDebugger.logError).toHaveBeenCalled();
   });
 
-  it('should add className "SimpleDebuggerOnBoard" to body', () => {
-    expect(document.body.classList.contains('SimpleDebuggerOnBoard')).toBe(true);
-  });
+  it('should add className "SimpleDebuggerOnBoard" to body', () =>
+    expect(document.body.classList.contains('SimpleDebuggerOnBoard')).toBe(true)
+  );
 });
 
 describe('add message', () => {
-  beforeEach(() => {
-  });
-
-  it('should inserted into messages', () => {
+  it('should insert into messages', () => {
     simpleDebugger.add('Some message');
 
     expect(simpleDebugger.messages.length).toEqual(1);
