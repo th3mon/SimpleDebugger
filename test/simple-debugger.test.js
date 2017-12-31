@@ -90,12 +90,12 @@ describe('add message', () => {
     expect(messageElement.classList.contains(messageId)).toBe(true);
   });
 
-  it('should increase height of container', () => {
-    jest.spyOn(simpleDebugger, 'increaseHeightOfContainer');
+  it('should update height of container', () => {
+    jest.spyOn(simpleDebugger, 'updateHeightOfContainer');
 
     simpleDebugger.add('Some message');
 
-    expect(simpleDebugger.increaseHeightOfContainer).toHaveBeenCalled();
+    expect(simpleDebugger.updateHeightOfContainer).toHaveBeenCalled();
   });
 
   it('should insert 3 messages', () => {
@@ -156,13 +156,13 @@ describe('remove message', () => {
     expect(simpleDebugger.removeFromDOM).toHaveBeenCalledWith(messageId);
   });
 
-  it('should decrease height of container', () => {
-    jest.spyOn(simpleDebugger, 'decreaseHeightOfContainer');
+  it('should update height of container', () => {
+    jest.spyOn(simpleDebugger, 'updateHeightOfContainer');
 
     simpleDebugger.add('Some message');
     simpleDebugger.remove(messageId);
 
-    expect(simpleDebugger.decreaseHeightOfContainer).toHaveBeenCalled();
+    expect(simpleDebugger.updateHeightOfContainer).toHaveBeenCalled();
   });
 });
 

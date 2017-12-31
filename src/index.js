@@ -34,7 +34,7 @@ SimpleDebugger.prototype.add = function (message) {
   const messageElement = this.createMessageElement(messageConfig);
 
   this.addMessageToDOM(messageElement);
-  this.increaseHeightOfContainer();
+  this.updateHeightOfContainer();
 
   this.messageId += 1;
 };
@@ -53,7 +53,7 @@ SimpleDebugger.prototype.createMessageElement = function ({ id, text }) {
   return pararaph;
 };
 
-SimpleDebugger.prototype.increaseHeightOfContainer = function () {
+SimpleDebugger.prototype.updateHeightOfContainer = function () {
   const mainContainerHeight = Math.max(this.mainContainer.offsetHeight, this.mainContainer.clientHeight);
 
   document.body.style.paddingTop = `${mainContainerHeight}px`;
@@ -66,13 +66,7 @@ SimpleDebugger.prototype.remove = function (messageId) {
   ];
 
   this.removeFromDOM(messageId);
-  this.decreaseHeightOfContainer();
-};
-
-SimpleDebugger.prototype.decreaseHeightOfContainer = function () {
-  const mainContainerHeight = Math.max(this.mainContainer.offsetHeight, this.mainContainer.clientHeight);
-
-  document.body.style.paddingTop = `${mainContainerHeight}px`;
+  this.updateHeightOfContainer();
 };
 
 SimpleDebugger.prototype.removeFromDOM = function (messageId) {
