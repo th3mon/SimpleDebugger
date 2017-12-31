@@ -97,6 +97,42 @@ describe('add message', () => {
 
     expect(simpleDebugger.increaseHeightOfContainer).toHaveBeenCalled();
   });
+
+  it('should insert 3 messages', () => {
+    simpleDebugger.add('Message nr 1');
+    simpleDebugger.add('Message nr 2');
+    simpleDebugger.add('Message nr 3');
+
+    expect(simpleDebugger.messages.length).toEqual(3);
+  });
+
+  it('should increase messageId to 3', () => {
+    simpleDebugger.add('Message nr 1');
+    simpleDebugger.add('Message nr 2');
+    simpleDebugger.add('Message nr 3');
+
+    expect(simpleDebugger.messageId).toEqual(3);
+  });
+
+  it('should insert 3 messages into DOM', () => {
+    simpleDebugger.add('Message nr 1');
+    simpleDebugger.add('Message nr 2');
+    simpleDebugger.add('Message nr 3');
+
+    const messages = document.body.querySelectorAll('.SimpleDebugger__message');
+
+    expect(messages.length).toEqual(3);
+  });
+
+  it('should get 2nd message of 3 added messages', () => {
+    simpleDebugger.add('Message nr 1');
+    simpleDebugger.add('Message nr 2');
+    simpleDebugger.add('Message nr 3');
+
+    const secondMessage = document.body.querySelector('.SimpleDebugger__message:nth-child(2)');
+
+    expect(secondMessage.innerText).toEqual('Message nr 2');
+  });
 });
 
 describe('remove message', () => {
