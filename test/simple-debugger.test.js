@@ -79,14 +79,15 @@ describe('add message', () => {
   });
 
   it('should insert to DOM', () => {
-    jest.spyOn(simpleDebugger, 'addToDOM');
-
     simpleDebugger.add('Some message');
 
-    expect(simpleDebugger.addToDOM).toHaveBeenCalledWith({
-      id: `SimpleDebuggerMessage-${simpleDebugger.id}-0`,
-      text: 'Some message'
-    });
+    const messageElement = document.body.querySelector('.SimpleDebugger__message');
+    const messageId = `SimpleDebuggerMessage-${simpleDebugger.id}-0`;
+
+    expect(messageElement).toBeTruthy();
+    expect(messageElement.innerText).toBe('Some message');
+    expect(messageElement.getAttribute('id')).toBe(messageId);
+    expect(messageElement.classList.contains(messageId)).toBe(true);
   });
 
   it('should increase height of container', () => {
@@ -164,5 +165,46 @@ describe('logError', () => {
     expect(simpleDebugger.add).toHaveBeenCalledWith(
       expect.stringContaining(line)
     );
+  });
+});
+
+describe('createMessageElement', () => {
+  let simpleDebuggerId;
+  let messageId;
+  let messageContent;
+  let messageConfig;
+  let messageElement;
+
+  beforeEach(() => {
+    simpleDebuggerId = simpleDebugger.id;
+    messageId = simpleDebugger.messageId;
+    messageContent = 'Some message';
+
+    messageConfig = {
+      id: `SimpleDebuggerMessage-${simpleDebuggerId}-${messageId}`,
+      text: messageContent
+    };
+
+    messageElement = simpleDebugger.createMessageElement(messageConfig);
+  });
+
+  it('should created message element be HTMLParagraphElement', () => {
+    expect(messageElement.toString()).toBe('[object HTMLParagraphElement]');
+  });
+
+  it('should create message with given id', () => {
+    const id = `SimpleDebuggerMessage-${simpleDebuggerId}-${messageId}`;
+
+    expect(messageElement.getAttribute('id')).toEqual(id);
+  });
+
+  it('should create message with given content', () => {
+    expect(messageElement.innerText).toEqual('Some message');
+  });
+
+  it('should create message with given id as className', () => {
+    const id = `SimpleDebuggerMessage-${simpleDebuggerId}-${messageId}`;
+
+    expect(messageElement.classList.contains(id)).toBe(true);
   });
 });

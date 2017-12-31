@@ -31,21 +31,26 @@ SimpleDebugger.prototype.add = function (message) {
   };
 
   this.messages.push(messageConfig);
+  const messageElement = this.createMessageElement(messageConfig);
 
-  this.addToDOM(messageConfig);
+  this.addMessageToDOM(messageElement);
   this.increaseHeightOfContainer();
 
   this.messageId += 1;
 };
 
-SimpleDebugger.prototype.addToDOM = function (message) {
+SimpleDebugger.prototype.addMessageToDOM = function (messageElement) {
+  this.mainContainer.appendChild(messageElement);
+};
+
+SimpleDebugger.prototype.createMessageElement = function ({ id, text }) {
   const pararaph = document.createElement('p');
 
-  pararaph.innerHtml = message;
-  pararaph.classList.add(message.id, 'SimpleDebugger__message');
-  pararaph.setAttribute('data-id', this.messageId);
+  pararaph.setAttribute('id', id);
+  pararaph.innerText = text;
+  pararaph.classList.add(id, 'SimpleDebugger__message');
 
-  this.mainContainer.appendChild(pararaph);
+  return pararaph;
 };
 
 SimpleDebugger.prototype.increaseHeightOfContainer = function () {
