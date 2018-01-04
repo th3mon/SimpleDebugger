@@ -1,5 +1,7 @@
 import '../css/main.css';
 
+// TODO: create some module for functions like removeNode() and move this function into it.
+const removeNode = node => node.parentNode.removeChild(node);
 const createMainContainer = id => {
   const mainContainer = document.createElement('div');
 
@@ -72,7 +74,7 @@ SimpleDebugger.prototype.remove = function (messageId) {
 SimpleDebugger.prototype.removeFromDOM = function (messageId) {
   const message = document.body.querySelector(`.SimpleDebuggerMessage-${this.id}-${messageId}`);
 
-  message.removeAttribute('id');
+  removeNode(message);
 };
 
 SimpleDebugger.prototype.logError = function (error, source, line) {
