@@ -164,6 +164,26 @@ describe('remove message', () => {
 
     expect(simpleDebugger.updateHeightOfContainer).toHaveBeenCalled();
   });
+
+  it('should remove 2nd message of 3 added messages', () => {
+    simpleDebugger.add('Message nr 1');
+    simpleDebugger.add('Message nr 2');
+    simpleDebugger.add('Message nr 3');
+
+    const secondMessageId = 1;
+    simpleDebugger.remove(secondMessageId);
+
+    const firstMessage = document.body.querySelector('.SimpleDebuggerMessage-666-0');
+    const secondMessage = document.body.querySelector('.SimpleDebuggerMessage-666-1');
+    const thirdMessage = document.body.querySelector('.SimpleDebuggerMessage-666-2');
+
+    expect(firstMessage).toBeTruthy();
+    expect(secondMessage).toBeFalsy();
+    expect(thirdMessage).toBeTruthy();
+
+    expect(firstMessage.innerText).toEqual('Message nr 1');
+    expect(thirdMessage.innerText).toEqual('Message nr 3');
+  });
 });
 
 describe('logError', () => {
