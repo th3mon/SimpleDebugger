@@ -148,12 +148,15 @@ describe('remove message', () => {
   });
 
   it('should remove message from DOM', () => {
-    jest.spyOn(simpleDebugger, 'removeFromDOM');
-
     simpleDebugger.add('Some message');
-    simpleDebugger.remove(messageId);
+    let message = document.body.querySelector('.SimpleDebugger__message');
 
-    expect(simpleDebugger.removeFromDOM).toHaveBeenCalledWith(messageId);
+    expect(message).toBeTruthy();
+
+    simpleDebugger.remove(messageId);
+    message = document.body.querySelector('.SimpleDebugger__message');
+
+    expect(message).toBeFalsy();
   });
 
   it('should update height of container', () => {
