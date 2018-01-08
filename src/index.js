@@ -11,16 +11,20 @@ const createMainContainer = id => {
   return mainContainer;
 };
 
-const SimpleDebugger = function (window, id) {
-  this.id = id;
-  this.messageId = 0;
-  this.messages = [];
+class SimpleDebugger {
+  constructor (window, id) {
+    this.id = id;
+    this.messageId = 0;
+    this.messages = [];
 
-  this.mainContainer = createMainContainer(id);
-  document.body.appendChild(this.mainContainer);
-  this.addMainClass();
-  window.onerror = (e, src, line) => this.logError(e, src, line);
-};
+    this.mainContainer = createMainContainer(id);
+    // TODO: should throw error if document is falsy
+    document.body.appendChild(this.mainContainer);
+    this.addMainClass();
+    // TODO: should throw error if window is falsy
+    window.onerror = (e, src, line) => this.logError(e, src, line);
+  }
+}
 
 SimpleDebugger.prototype.addMainClass = function () {
   document.body.classList.add('SimpleDebuggerOnBoard');
