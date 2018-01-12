@@ -1,5 +1,5 @@
-// TODO: create some module for functions like removeNode() and move this function into it.
-const removeNode = node => node.parentNode.removeChild(node);
+import { removeNode } from './dom';
+
 const createMainContainer = id => {
   const mainContainer = document.createElement('div');
 
