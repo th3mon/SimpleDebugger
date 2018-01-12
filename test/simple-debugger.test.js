@@ -1,6 +1,7 @@
 import SimpleDebugger from '../src/simple-debugger';
 
 let simpleDebugger;
+let simpleDebuggerId = 666;
 
 const fakeWindow = {
   onerror: jest.fn()
@@ -12,8 +13,7 @@ const removeSimpleDebugger = () =>
     .querySelectorAll('.SimpleDebugger')
     .forEach( removeNode );
 
-
-beforeEach(() => simpleDebugger = new SimpleDebugger(fakeWindow, 666));
+beforeEach(() => simpleDebugger = new SimpleDebugger(fakeWindow, document, simpleDebuggerId));
 afterEach( removeSimpleDebugger );
 
 it('to be defined', () => expect(simpleDebugger).toBeDefined());
@@ -44,6 +44,11 @@ describe('constructor', () => {
 
   it('should add className "SimpleDebuggerOnBoard" to body', () =>
     expect(document.body.classList.contains('SimpleDebuggerOnBoard')).toBe(true)
+  );
+
+  it('document object should be reachable', () =>
+    expect(() => new SimpleDebugger(window, null, simpleDebuggerId))
+      .toThrow('document should be defined')
   );
 });
 
@@ -228,7 +233,6 @@ describe('logError', () => {
 });
 
 describe('createMessageElement', () => {
-  let simpleDebuggerId;
   let messageId;
   let messageContent;
   let messageConfig;

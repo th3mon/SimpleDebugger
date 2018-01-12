@@ -11,14 +11,19 @@ const createMainContainer = id => {
 const addMainClass = () => document.body.classList.add('SimpleDebuggerOnBoard');
 
 class SimpleDebugger {
-  constructor (window, id) {
+  constructor (window, document, id) {
     this.id = id;
     this.messageId = 0;
     this.messages = [];
 
     this.mainContainer = createMainContainer(id);
-    // TODO: should throw error if document is falsy
-    document.body.appendChild(this.mainContainer);
+
+    if (document) {
+      document.body.appendChild(this.mainContainer);
+    } else {
+      throw Error('document should be defined');
+    }
+
     addMainClass();
     // TODO: should throw error if window is falsy
     window.onerror = (e, src, line) => this.logError(e, src, line);
