@@ -1,4 +1,4 @@
-import SimpleDebugger from '../src/index';
+import SimpleDebugger from '../src/simple-debugger';
 
 let simpleDebugger;
 
