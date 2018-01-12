@@ -54,32 +54,32 @@ class SimpleDebugger {
   addMessageToDOM (messageElement) {
     this.mainContainer.appendChild(messageElement);
   }
+
+  updateHeightOfContainer () {
+    const mainContainerHeight = Math.max(this.mainContainer.offsetHeight, this.mainContainer.clientHeight);
+
+    document.body.style.paddingTop = `${mainContainerHeight}px`;
+  }
+
+  remove (messageId) {
+    this.messages = [
+      ...this.messages.slice(0, messageId),
+      ...this.messages.slice(messageId + 1)
+    ];
+
+    this.removeFromDOM(messageId);
+    this.updateHeightOfContainer();
+  }
+
+  removeFromDOM (messageId) {
+    const message = document.body.querySelector(`.SimpleDebuggerMessage-${this.id}-${messageId}`);
+
+    removeNode(message);
+  }
+
+  logError (error, source, line) {
+    this.add(`error: ${error} in ${source} at line ${line}`);
+  }
 }
-
-SimpleDebugger.prototype.updateHeightOfContainer = function () {
-  const mainContainerHeight = Math.max(this.mainContainer.offsetHeight, this.mainContainer.clientHeight);
-
-  document.body.style.paddingTop = `${mainContainerHeight}px`;
-};
-
-SimpleDebugger.prototype.remove = function (messageId) {
-  this.messages = [
-    ...this.messages.slice(0, messageId),
-    ...this.messages.slice(messageId + 1)
-  ];
-
-  this.removeFromDOM(messageId);
-  this.updateHeightOfContainer();
-};
-
-SimpleDebugger.prototype.removeFromDOM = function (messageId) {
-  const message = document.body.querySelector(`.SimpleDebuggerMessage-${this.id}-${messageId}`);
-
-  removeNode(message);
-};
-
-SimpleDebugger.prototype.logError = function (error, source, line) {
-  this.add(`error: ${error} in ${source} at line ${line}`);
-};
 
 export default SimpleDebugger;
