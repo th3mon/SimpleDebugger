@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const version = require('../package.json').version;
 
 module.exports = function (env) {
   return {
@@ -10,9 +11,9 @@ module.exports = function (env) {
     },
     output: {
       path: path.resolve(__dirname, '../dist'),
-      filename: '[name].bundle.js',
+      filename: `[name].${version}.bundle.js`,
       // publicPath: publicPath,
-      sourceMapFilename: '[name].map'
+      sourceMapFilename: `[name].${version}.map`
     },
     module: {
       rules: [
@@ -77,7 +78,6 @@ module.exports = function (env) {
         filename: '[name].bundle.css'
       }),
       new HtmlWebpackPlugin({
-        // TODO: add version number
         title: 'SimpleDebugger',
         filename: path.join(__dirname, '/../index.html')
       })

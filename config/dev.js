@@ -3,6 +3,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const version = require('../package.json').version;
 
 module.exports = function (env) {
   return {
@@ -12,8 +13,8 @@ module.exports = function (env) {
     },
     output: {
       path: path.resolve(__dirname, '../dist'),
-      filename: '[name].bundle.js',
-      sourceMapFilename: '[name].map'
+      filename: `[name].${version}.bundle.js`,
+      sourceMapFilename: `[name].${version}.map`
     },
     module: {
       rules: [
@@ -54,7 +55,6 @@ module.exports = function (env) {
         filename: '[name].bundle.css'
       }),
       new HtmlWebpackPlugin({
-        // TODO: add version number
         title: 'SimpleDebugger',
         alwaysWriteToDisk: true
       }),
