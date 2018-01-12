@@ -50,6 +50,11 @@ describe('constructor', () => {
     expect(() => new SimpleDebugger(window, null, simpleDebuggerId))
       .toThrow('document should be defined')
   );
+
+  it('window object should be reachable', () =>
+    expect(() => new SimpleDebugger(null, document, simpleDebuggerId))
+      .toThrow('window should be defined')
+  );
 });
 
 describe('add message', () => {

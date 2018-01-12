@@ -25,8 +25,12 @@ class SimpleDebugger {
     }
 
     addMainClass();
-    // TODO: should throw error if window is falsy
-    window.onerror = (e, src, line) => this.logError(e, src, line);
+
+    if (window) {
+      window.onerror = (e, src, line) => this.logError(e, src, line);
+    } else {
+      throw Error('window should be defined');
+    }
   }
 
   add (message) {
