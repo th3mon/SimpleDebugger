@@ -34,7 +34,7 @@
     "build:prod": "webpack --env=prod --progress --profile --colors",
     "test": "jest",
     "test:watch": "jest --watch",
-    "version-bump": "npm run set-tag-prefix && npm version",
+    "version-bump": "npm run set-tag-prefix && npm version"
   },
   "repository": {
     "type": "git",
