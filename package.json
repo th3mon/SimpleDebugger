@@ -29,9 +29,11 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open --env=dev --progress --profile --colors",
+    "start:demo": "webpack-dev-server --open --env=demo --progress --profile --colors",
     "watch": "webpack --watch --env=dev --progress --profile --colors",
     "build:dev": "webpack --env=dev --progress --profile --colors",
     "build:prod": "webpack --env=prod --progress --profile --colors",
+    "build:demo": "webpack --env=demo --progress --profile --colors",
     "test": "jest",
     "test:watch": "jest --watch",
     "version-bump": "npm run set-tag-prefix && npm version"

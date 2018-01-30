@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const version = require('../package.json').version;
 
-module.exports = function (env) {
+module.exports = function () {
   return {
     devtool: 'cheap-module-source-map',
     entry: {

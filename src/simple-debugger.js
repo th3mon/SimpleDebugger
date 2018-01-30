@@ -63,7 +63,7 @@ class SimpleDebugger {
   }
 
   updateHeightOfContainer () {
-    const mainContainerHeight = Math.max(this.mainContainer.offsetHeight, this.mainContainer.clientHeight);
+    const mainContainerHeight = '100';
 
     document.body.style.paddingTop = `${mainContainerHeight}px`;
   }
