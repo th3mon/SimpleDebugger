@@ -11,7 +11,13 @@ const createMainContainer = id => {
 const addMainClass = () => document.body.classList.add('SimpleDebuggerOnBoard');
 
 class SimpleDebugger {
-  constructor (window, document, id) {
+  constructor (window = window, document = document, id) {
+    const getMainContainerHeight = () => Math.max(
+      this.mainContainer.offsetHeight,
+      this.mainContainer.clientHeight,
+      0
+    );
+
     this.id = id;
     this.messageId = 0;
     this.messages = [];
@@ -20,6 +26,7 @@ class SimpleDebugger {
 
     if (document) {
       document.body.appendChild(this.mainContainer);
+      this.mainContainer.height = getMainContainerHeight();
     } else {
       throw Error('document should be defined');
     }
@@ -31,6 +38,8 @@ class SimpleDebugger {
     } else {
       throw Error('window should be defined');
     }
+
+    this.moveContentByHeightOfMainContainer();
   }
 
   add (message) {
@@ -43,7 +52,6 @@ class SimpleDebugger {
     const messageElement = this.createMessageElement(messageConfig);
 
     this.addMessageToDOM(messageElement);
-    this.updateHeightOfContainer();
 
     this.messageId += 1;
   }
@@ -62,10 +70,10 @@ class SimpleDebugger {
     this.mainContainer.appendChild(messageElement);
   }
 
-  updateHeightOfContainer () {
-    const mainContainerHeight = '100';
+  moveContentByHeightOfMainContainer () {
+    const bodyPaddingTop = Number.parseInt(document.body.style.paddingTop, 10) || 0;
 
-    document.body.style.paddingTop = `${mainContainerHeight}px`;
+    document.body.style.paddingTop = `${this.mainContainer.height + bodyPaddingTop}px`;
   }
 
   remove (messageId) {
@@ -75,7 +83,6 @@ class SimpleDebugger {
     ];
 
     this.removeFromDOM(messageId);
-    this.updateHeightOfContainer();
   }
 
   removeFromDOM (messageId) {

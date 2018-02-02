@@ -2,6 +2,7 @@ import SimpleDebugger from '../src/simple-debugger';
 
 let simpleDebugger;
 let simpleDebuggerId = 666;
+let notModifiedBodyPaddingTop;
 
 const fakeWindow = {
   onerror: jest.fn()
@@ -13,7 +14,10 @@ const removeSimpleDebugger = () =>
     .querySelectorAll('.SimpleDebugger')
     .forEach( removeNode );
 
-beforeEach(() => simpleDebugger = new SimpleDebugger(fakeWindow, document, simpleDebuggerId));
+beforeEach(() => {
+  notModifiedBodyPaddingTop = Number.parseInt(document.body.style.paddingTop) || 0;
+  simpleDebugger = new SimpleDebugger(fakeWindow, document, simpleDebuggerId);
+});
 afterEach( removeSimpleDebugger );
 
 it('to be defined', () => expect(simpleDebugger).toBeDefined());
@@ -31,6 +35,12 @@ describe('constructor', () => {
     const mainContainer = document.getElementById('SimpleDebugger-666');
 
     expect(mainContainer.id).toBe('SimpleDebugger-666');
+  });
+
+  it('move content by main containers height', () => {
+    const bodyPaddingTop = Number.parseInt(document.body.style.paddingTop, 10) || 0;
+
+    expect(bodyPaddingTop - simpleDebugger.mainContainer.height).toEqual(notModifiedBodyPaddingTop);
   });
 
   it('should set id', () => expect(simpleDebugger.id).toEqual(666) );
@@ -100,14 +110,6 @@ describe('add message', () => {
     expect(messageElement.classList.contains(messageId)).toBe(true);
   });
 
-  it('should update height of container', () => {
-    jest.spyOn(simpleDebugger, 'updateHeightOfContainer');
-
-    simpleDebugger.add('Some message');
-
-    expect(simpleDebugger.updateHeightOfContainer).toHaveBeenCalled();
-  });
-
   it('should insert 3 messages', () => {
     simpleDebugger.add('Message nr 1');
     simpleDebugger.add('Message nr 2');
@@ -167,15 +169,6 @@ describe('remove message', () => {
     message = document.body.querySelector('.SimpleDebugger__message');
 
     expect(message).toBeFalsy();
-  });
-
-  it('should update height of container', () => {
-    jest.spyOn(simpleDebugger, 'updateHeightOfContainer');
-
-    simpleDebugger.add('Some message');
-    simpleDebugger.remove(messageId);
-
-    expect(simpleDebugger.updateHeightOfContainer).toHaveBeenCalled();
   });
 
   it('should remove 2nd message of 3 added messages', () => {
