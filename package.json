@@ -1,0 +1,58 @@
+{
+  "name": "SimpleDebugger",
+  "version": "1.0.0",
+  "description": "SimpleDebugger",
+  "main": "dist/main.bundle.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-jest": "^21.2.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.18.13",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.13.1",
+    "eslint-loader": "^1.9.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-harddisk-plugin": "^0.1.0",
+    "html-webpack-plugin": "^2.30.1",
+    "jest": "^22.0.3",
+    "node-sass": "^4.7.2",
+    "regenerator-runtime": "^0.11.1",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.9.1",
+    "webpack-dev-server": "^2.9.7"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --open --env=dev --progress --profile --colors",
+    "start:demo": "webpack-dev-server --open --env=demo --progress --profile --colors",
+    "watch": "webpack --watch --env=dev --progress --profile --colors",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:prod": "webpack --env=prod --progress --profile --colors",
+    "build:demo": "webpack --env=demo --progress --profile --colors",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "version-bump": "npm run set-tag-prefix && npm version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/th3mon/SimpleDebugger.git"
+  },
+  "keywords": [],
+  "author": "Przemysław Szelenberger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/th3mon/SimpleDebugger/issues"
+  },
+  "homepage": "https://github.com/th3mon/SimpleDebugger#readme",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/mocks/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/test/mocks/styleMock.js"
+    }
+  }
+}
