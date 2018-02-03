@@ -2,6 +2,9 @@
 
 SimpleDebugger works like console.log(). It puts messages into DOM.
 
+## CI Status
+master: [![CircleCI](https://circleci.com/gh/th3mon/SimpleDebugger/tree/master.svg?style=svg)](https://circleci.com/gh/th3mon/SimpleDebugger/tree/master) develop: [![CircleCI](https://circleci.com/gh/th3mon/SimpleDebugger/tree/develop.svg?style=svg)](https://circleci.com/gh/th3mon/SimpleDebugger/tree/develop)
+
 ## Getting Started
 
 ### Install dependencies
