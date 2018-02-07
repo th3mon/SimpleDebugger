@@ -36,6 +36,7 @@
     "build:demo": "webpack --env=demo --progress --profile --colors",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --watch --coverage",
     "version-bump": "npm run set-tag-prefix && npm version"
   },
   "repository": {

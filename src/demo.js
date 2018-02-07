@@ -13,7 +13,7 @@ const generateMockContent = () => {
 
 generateMockContent();
 
-const db1 = new SimpleDebugger(window, document, 1);
+const db1 = new SimpleDebugger(1);
 
 for (let i = 30; i > 0; i--) {
   db1.add(`TEST ${i}`);

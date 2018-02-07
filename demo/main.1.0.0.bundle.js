@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "43ba6702855d244e13a0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "468744649ae0f042a853"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -746,11 +746,24 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log('this is a demo'); // import '../css/main.css';
+var generateMockContent = function generateMockContent() {
+  for (var i = 100; i > 0; i--) {
+    var mockContent = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque adipisci enim ut. Temporibus quasi reprehenderit maiores nostrum adipisci debitis porro? Quo commodi officia praesentium reiciendis. Labore odit aliquid consectetur debitis?';
+    var p = document.createElement('p');
 
-console.log('is SimpleDebugger on board: ' + !!_index2.default);
+    p.innerText = mockContent;
 
-// export default SimpleDebugger;
+    document.body.appendChild(p);
+  }
+};
+
+generateMockContent();
+
+var db1 = new _index2.default(1);
+
+for (var i = 30; i > 0; i--) {
+  db1.add('TEST ' + i);
+}
 
 /***/ }),
 
@@ -822,10 +835,14 @@ var addMainClass = function addMainClass() {
 };
 
 var SimpleDebugger = function () {
-  function SimpleDebugger(window, document, id) {
+  function SimpleDebugger(id) {
     var _this = this;
 
     _classCallCheck(this, SimpleDebugger);
+
+    var getMainContainerHeight = function getMainContainerHeight() {
+      return Math.max(_this.mainContainer.offsetHeight, _this.mainContainer.clientHeight, 0);
+    };
 
     this.id = id;
     this.messageId = 0;
@@ -833,21 +850,16 @@ var SimpleDebugger = function () {
 
     this.mainContainer = createMainContainer(id);
 
-    if (document) {
-      document.body.appendChild(this.mainContainer);
-    } else {
-      throw Error('document should be defined');
-    }
+    document.body.appendChild(this.mainContainer);
+    this.mainContainer.height = getMainContainerHeight();
 
     addMainClass();
 
-    if (window) {
-      window.onerror = function (e, src, line) {
-        return _this.logError(e, src, line);
-      };
-    } else {
-      throw Error('window should be defined');
-    }
+    window.onerror = function (e, src, line) {
+      return _this.logError(e, src, line);
+    };
+
+    this.moveContentByHeightOfMainContainer();
   }
 
   _createClass(SimpleDebugger, [{
@@ -862,7 +874,6 @@ var SimpleDebugger = function () {
       var messageElement = this.createMessageElement(messageConfig);
 
       this.addMessageToDOM(messageElement);
-      this.updateHeightOfContainer();
 
       this.messageId += 1;
     }
@@ -886,11 +897,11 @@ var SimpleDebugger = function () {
       this.mainContainer.appendChild(messageElement);
     }
   }, {
-    key: 'updateHeightOfContainer',
-    value: function updateHeightOfContainer() {
-      var mainContainerHeight = Math.max(this.mainContainer.offsetHeight, this.mainContainer.clientHeight);
+    key: 'moveContentByHeightOfMainContainer',
+    value: function moveContentByHeightOfMainContainer() {
+      var bodyPaddingTop = Number.parseInt(document.body.style.paddingTop, 10) || 0;
 
-      document.body.style.paddingTop = mainContainerHeight + 'px';
+      document.body.style.paddingTop = this.mainContainer.height + bodyPaddingTop + 'px';
     }
   }, {
     key: 'remove',
@@ -898,7 +909,6 @@ var SimpleDebugger = function () {
       this.messages = [].concat(_toConsumableArray(this.messages.slice(0, messageId)), _toConsumableArray(this.messages.slice(messageId + 1)));
 
       this.removeFromDOM(messageId);
-      this.updateHeightOfContainer();
     }
   }, {
     key: 'removeFromDOM',

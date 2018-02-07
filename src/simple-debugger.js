@@ -11,7 +11,7 @@ const createMainContainer = id => {
 const addMainClass = () => document.body.classList.add('SimpleDebuggerOnBoard');
 
 class SimpleDebugger {
-  constructor (window = window, document = document, id) {
+  constructor (id) {
     const getMainContainerHeight = () => Math.max(
       this.mainContainer.offsetHeight,
       this.mainContainer.clientHeight,
@@ -24,20 +24,12 @@ class SimpleDebugger {
 
     this.mainContainer = createMainContainer(id);
 
-    if (document) {
-      document.body.appendChild(this.mainContainer);
-      this.mainContainer.height = getMainContainerHeight();
-    } else {
-      throw Error('document should be defined');
-    }
+    document.body.appendChild(this.mainContainer);
+    this.mainContainer.height = getMainContainerHeight();
 
     addMainClass();
 
-    if (window) {
-      window.onerror = (e, src, line) => this.logError(e, src, line);
-    } else {
-      throw Error('window should be defined');
-    }
+    window.onerror = (e, src, line) => this.logError(e, src, line);
 
     this.moveContentByHeightOfMainContainer();
   }
