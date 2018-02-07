@@ -4,10 +4,6 @@ let simpleDebugger;
 let simpleDebuggerId = 666;
 let notModifiedBodyPaddingTop;
 
-const fakeWindow = {
-  onerror: jest.fn()
-};
-
 const removeNode = node => node.parentNode.removeChild(node);
 const removeSimpleDebugger = () =>
   document.body
@@ -16,7 +12,7 @@ const removeSimpleDebugger = () =>
 
 beforeEach(() => {
   notModifiedBodyPaddingTop = Number.parseInt(document.body.style.paddingTop) || 0;
-  simpleDebugger = new SimpleDebugger(fakeWindow, document, simpleDebuggerId);
+  simpleDebugger = new SimpleDebugger(simpleDebuggerId);
 });
 afterEach( removeSimpleDebugger );
 
@@ -47,23 +43,13 @@ describe('constructor', () => {
 
   it('should react on rised error', () => {
     simpleDebugger.logError = jest.fn().mockName('logError');
-    fakeWindow.onerror();
+    window.onerror();
 
     expect(simpleDebugger.logError).toHaveBeenCalled();
   });
 
   it('should add className "SimpleDebuggerOnBoard" to body', () =>
     expect(document.body.classList.contains('SimpleDebuggerOnBoard')).toBe(true)
-  );
-
-  it('document object should be reachable', () =>
-    expect(() => new SimpleDebugger(window, null, simpleDebuggerId))
-      .toThrow('document should be defined')
-  );
-
-  it('window object should be reachable', () =>
-    expect(() => new SimpleDebugger(null, document, simpleDebuggerId))
-      .toThrow('window should be defined')
   );
 });
 
