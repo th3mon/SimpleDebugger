@@ -1,20 +1,28 @@
 const webpack = require('webpack');
 const path = require('path');
+const libraryName = 'simple-debugger';
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const version = require('../package.json').version;
 
 module.exports = function () {
   return {
-    devtool: 'cheap-module-source-map',
     entry: {
-      main: './src/index.js'
+      [libraryName]: './src/index.js'
     },
+    devtool: 'cheap-module-source-map',
     output: {
       path: path.resolve(__dirname, '../dist'),
-      filename: `[name].${version}.bundle.js`,
-      sourceMapFilename: `[name].${version}.map`
+      filename: '[name].js',
+      library: {
+        root: 'SimpleDebugger',
+        amd: libraryName,
+        commonjs: libraryName
+      },
+      libraryTarget: 'umd',
+      umdNamedDefine: true,
+      sourceMapFilename: '[name].map'
     },
     module: {
       rules: [
@@ -52,7 +60,7 @@ module.exports = function () {
     },
     plugins: [
       new ExtractTextPlugin({
-        filename: '[name].bundle.css'
+        filename: '[name].css'
       }),
       new HtmlWebpackPlugin({
         title: 'SimpleDebugger',

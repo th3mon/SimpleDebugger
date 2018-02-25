@@ -1,19 +1,25 @@
 const webpack = require('webpack');
 const path = require('path');
+const libraryName = 'simple-debugger';
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const version = require('../package.json').version;
 
 module.exports = function () {
   return {
     entry: {
-      main: './src/index.js'
+      [libraryName]: './src/index.js'
     },
     output: {
       path: path.resolve(__dirname, '../dist'),
-      filename: `[name].${version}.bundle.js`,
-      // publicPath: publicPath,
-      sourceMapFilename: `[name].${version}.map`
+      filename: '[name].min.js',
+      library: {
+        root: 'SimpleDebugger',
+        amd: libraryName,
+        commonjs: libraryName
+      },
+      libraryTarget: 'umd',
+      sourceMapFilename: '[name].map'
     },
     module: {
       rules: [
@@ -75,7 +81,7 @@ module.exports = function () {
         comments: false
       }),
       new ExtractTextPlugin({
-        filename: '[name].bundle.css'
+        filename: '[name].min.css'
       }),
       new HtmlWebpackPlugin({
         title: 'SimpleDebugger',
