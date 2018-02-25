@@ -2,7 +2,7 @@
   "name": "SimpleDebugger",
   "version": "1.0.0",
   "description": "SimpleDebugger",
-  "main": "dist/main.bundle.js",
+  "main": "dist/simple-debugger.min.js",
   "dependencies": {},
   "devDependencies": {
     "babel": "^6.23.0",
@@ -30,9 +30,8 @@
   "scripts": {
     "start": "webpack-dev-server --open --env=dev --progress --profile --colors",
     "start:demo": "webpack-dev-server --open --env=demo --progress --profile --colors",
-    "watch": "webpack --watch --env=dev --progress --profile --colors",
-    "build:dev": "webpack --env=dev --progress --profile --colors",
-    "build:prod": "webpack --env=prod --progress --profile --colors",
+    "dev": "webpack --watch --env=dev --progress --profile --colors",
+    "build": "webpack --env=prod",
     "build:demo": "webpack --env=demo --progress --profile --colors",
     "test": "jest",
     "test:watch": "jest --watch",
